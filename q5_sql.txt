@@ -1,0 +1,330 @@
+SQL*Plus: Release 10.2.0.1.0 - Production on Fri Mar 25 13:06:29 2022
+
+Copyright (c) 1982, 2005, Oracle.  All rights reserved.
+
+
+Connected to:
+Oracle Database 10g Enterprise Edition Release 10.2.0.1.0 - Production
+With the Partitioning, OLAP and Data Mining options
+
+SQL> create table BUS(bus_no varchar(6) PRIMARY KEY,source varchar(15),couch_type varchar(10));
+create table BUS(bus_no varchar(6) PRIMARY KEY,source varchar(15),couch_type varchar(10))
+             *
+ERROR at line 1:
+ORA-00955: name is already used by an existing object
+
+
+SQL> create table BUS1(bus_no varchar(6) PRIMARY KEY,source varchar(15),couch_type varchar(10));
+
+Table created.
+
+SQL> desc BUS1
+ Name                                      Null?    Type
+ ----------------------------------------- -------- ----------------------------
+ BUS_NO                                    NOT NULL VARCHAR2(6)
+ SOURCE                                             VARCHAR2(15)
+ COUCH_TYPE                                         VARCHAR2(10)
+
+SQL> create table RESERVATION(PNR_NO number(5) PRIMARY KEY,Name varchar(15) ,Journey_Date varchar(15
+),No_of_seats number(3),Address varchar(15),Contact_No number(10),bus_no REFERENCES BUS1(bus_no)seat
+_no number(3));
+create table RESERVATION(PNR_NO number(5) PRIMARY KEY,Name varchar(15) ,Journey_Date varchar(15),No_
+                                                                                                    
+ERROR at line 1:
+ORA-00907: missing right parenthesis
+
+
+SQL> create table RESERVATION(PNR_NO number(5) PRIMARY KEY,Name varchar(15) ,Journey_Date varchar(15
+),No_of_seats number(3),Address varchar(15),Contact_No number(10),bus_no REFERENCES BUS1(bus_no),sea
+t_no number(3));
+create table RESERVATION(PNR_NO number(5) PRIMARY KEY,Name varchar(15) ,Journey_Date varchar(15),No_
+             *
+ERROR at line 1:
+ORA-00955: name is already used by an existing object
+
+
+SQL> create table RESERVATION1(PNR_NO number(5) PRIMARY KEY,Name varchar(15) ,Journey_Date varchar(1
+5),No_of_seats number(3),Address varchar(15),Contact_No number(10),bus_no REFERENCES BUS1(bus_no),se
+at_no number(3));
+
+Table created.
+
+SQL> desc RESERVATION1
+ Name                                      Null?    Type
+ ----------------------------------------- -------- ----------------------------
+ PNR_NO                                    NOT NULL NUMBER(5)
+ NAME                                               VARCHAR2(15)
+ JOURNEY_DATE                                       VARCHAR2(15)
+ NO_OF_SEATS                                        NUMBER(3)
+ ADDRESS                                            VARCHAR2(15)
+ CONTACT_NO                                         NUMBER(10)
+ BUS_NO                                             VARCHAR2(6)
+ SEAT_NO                                            NUMBER(3)
+
+SQL> create table TICKET1(Ticket_No number(5) PRIMARY KEY,Journey_Date varchar(15),Age number(2),Sex
+ varchar(10),source varchar(10),Destination varchar(15),Dep_time number(10), bus_no number(6));
+
+Table created.
+
+SQL> desc TICKET1
+ Name                                      Null?    Type
+ ----------------------------------------- -------- ----------------------------
+ TICKET_NO                                 NOT NULL NUMBER(5)
+ JOURNEY_DATE                                       VARCHAR2(15)
+ AGE                                                NUMBER(2)
+ SEX                                                VARCHAR2(10)
+ SOURCE                                             VARCHAR2(10)
+ DESTINATION                                        VARCHAR2(15)
+ DEP_TIME                                           NUMBER(10)
+ BUS_NO                                             NUMBER(6)
+
+SQL> create table PASSENGER(PNR_NO number(5) PRIMARY KEY, Ticket_No  REFERENCES TICKET1(Ticket_No),A
+ge number(2),Sex varchar(10),Contact_No number(10));
+
+Table created.
+
+SQL> desc PASSENGER
+ Name                                      Null?    Type
+ ----------------------------------------- -------- ----------------------------
+ PNR_NO                                    NOT NULL NUMBER(5)
+ TICKET_NO                                          NUMBER(5)
+ AGE                                                NUMBER(2)
+ SEX                                                VARCHAR2(10)
+ CONTACT_NO                                         NUMBER(10)
+
+SQL> create table CANCELLATION(PNR_NO number(5) PRIMARY KEY,
+  2  Journey_Date varchar(15),seat_no number(3),Contact_No number(10));
+
+Table created.
+
+SQL> desc CANCELLATION
+ Name                                      Null?    Type
+ ----------------------------------------- -------- ----------------------------
+ PNR_NO                                    NOT NULL NUMBER(5)
+ JOURNEY_DATE                                       VARCHAR2(15)
+ SEAT_NO                                            NUMBER(3)
+ CONTACT_NO                                         NUMBER(10)
+
+SQL> insert into BUS1(bus_no,source ,couch_type)
+  2  values(KL_01,'TVM','A/C');
+values(KL_01,'TVM','A/C')
+       *
+ERROR at line 2:
+ORA-00984: column not allowed here
+
+
+SQL> insert into BUS1(bus_no,source ,couch_type)
+  2  values(KL_02,'KOLLAM','NON_A/C');
+values(KL_02,'KOLLAM','NON_A/C')
+       *
+ERROR at line 2:
+ORA-00984: column not allowed here
+
+
+SQL> insert into BUS1(bus_no,source ,couch_type)
+  2  values(KL_03,'KOCHI','A/C');
+values(KL_03,'KOCHI','A/C')
+       *
+ERROR at line 2:
+ORA-00984: column not allowed here
+
+
+SQL> insert into BUS1(bus_no,source ,couch_type)
+  2  values(KL_04,'TRISSUR','NON_A/C');
+values(KL_04,'TRISSUR','NON_A/C')
+       *
+ERROR at line 2:
+ORA-00984: column not allowed here
+
+
+SQL> insert into BUS1(bus_no,source ,couch_type)
+  2  values(KL_05,'PALAKKAD','A/C');
+values(KL_05,'PALAKKAD','A/C')
+       *
+ERROR at line 2:
+ORA-00984: column not allowed here
+
+
+SQL> 
+SQL> insert into BUS1(bus_no,source ,couch_type)
+  2  values('KL_01','TVM','A/C');
+
+1 row created.
+
+SQL> insert into BUS1(bus_no,source ,couch_type)
+  2  values('KL_02','KOLLAM','NON_A/C');
+
+1 row created.
+
+SQL> insert into BUS1(bus_no,source ,couch_type)
+  2  values('KL_03','KOCHI','A/C');
+
+1 row created.
+
+SQL> insert into BUS1(bus_no,source ,couch_type)
+  2  values('KL_04','TRISSUR','NON_A/C');
+
+1 row created.
+
+SQL> insert into BUS1(bus_no,source ,couch_type)
+  2  values('KL_05','PALAKKAD','A/C');
+
+1 row created.
+
+SQL> 
+SQL> 
+SQL> select * from BUS1;
+
+BUS_NO SOURCE          COUCH_TYPE
+------ --------------- ----------
+KL_01  TVM             A/C
+KL_02  KOLLAM          NON_A/C
+KL_03  KOCHI           A/C
+KL_04  TRISSUR         NON_A/C
+KL_05  PALAKKAD        A/C
+
+SQL> insert into  RESERVATION1(PNR_NO,Name,Journey_Date,No_of_seats,Address,Contact_No,bus_no,seat_n
+o)
+  2  values(101,'JOHN','12-03-2022',2,'PATTOM',9753186420,'KL_01',28);
+
+1 row created.
+
+SQL> insert into  RESERVATION1(PNR_NO,Name,Journey_Date,No_of_seats,Address,Contact_No,bus_no,seat_n
+o)
+  2  values(102,'JOY','19-03-2022',2,'AYOOR',9753186420,'KL_01',28);
+
+1 row created.
+
+SQL> insert into  RESERVATION1(PNR_NO,Name,Journey_Date,No_of_seats,Address,Contact_No,bus_no,seat_n
+o)
+  2  values(103,'RIYA','12-04-2022',2,'ALUVA',9753186420,'KL_01',28);
+
+1 row created.
+
+SQL> insert into  RESERVATION1(PNR_NO,Name,Journey_Date,No_of_seats,Address,Contact_No,bus_no,seat_n
+o)
+  2  values(104,'ALEENA','12-04-2022',2,'TRISSUR',9753186420,'KL_01',28);
+
+1 row created.
+
+SQL> insert into  RESERVATION1(PNR_NO,Name,Journey_Date,No_of_seats,Address,Contact_No,bus_no,seat_n
+o)
+  2  values(105,'HIMA','19-03-2022',2,'PATTAMBI',9753186420,'KL_01',28);
+
+1 row created.
+
+SQL> 
+SQL> SELECT * FROM REFERENCES;
+SELECT * FROM REFERENCES
+              *
+ERROR at line 1:
+ORA-00942: table or view does not exist
+
+
+SQL> select * from RESERVATION1;
+
+    PNR_NO NAME            JOURNEY_DATE    NO_OF_SEATS ADDRESS
+---------- --------------- --------------- ----------- ---------------
+CONTACT_NO BUS_NO    SEAT_NO
+---------- ------ ----------
+       101 JOHN            12-03-2022                2 PATTOM
+9753186420 KL_01          28
+
+       102 JOY             19-03-2022                2 AYOOR
+9753186420 KL_01          28
+
+       103 RIYA            12-04-2022                2 ALUVA
+9753186420 KL_01          28
+
+
+    PNR_NO NAME            JOURNEY_DATE    NO_OF_SEATS ADDRESS
+---------- --------------- --------------- ----------- ---------------
+CONTACT_NO BUS_NO    SEAT_NO
+---------- ------ ----------
+       104 ALEENA          12-04-2022                2 TRISSUR
+9753186420 KL_01          28
+
+       105 HIMA            19-03-2022                2 PATTAMBI
+9753186420 KL_01          28
+
+
+SQL> TRUNCATE RESERVATION1;
+TRUNCATE RESERVATION1
+                    *
+ERROR at line 1:
+ORA-03290: Invalid truncate command - missing CLUSTER or TABLE keyword
+
+
+SQL> TRUNCATE table RESERVATION;
+
+Table truncated.
+
+SQL> TRUNCATE TABLE RESERVATION1;
+
+Table truncated.
+
+SQL> insert into  RESERVATION1(PNR_NO,Name,Journey_Date,No_of_seats,Address,Contact_No,bus_no,seat_n
+o)
+  2  values(101,'JOHN','12-03-2022',2,'PATTOM',9753186420,'KL_01',28);
+
+1 row created.
+
+SQL> insert into  RESERVATION1(PNR_NO,Name,Journey_Date,No_of_seats,Address,Contact_No,bus_no,seat_n
+o)
+  2  values(102,'JOY','19-03-2022',2,'AYOOR',9753186420,'KL_02',28);
+
+1 row created.
+
+SQL> insert into  RESERVATION1(PNR_NO,Name,Journey_Date,No_of_seats,Address,Contact_No,bus_no,seat_n
+o)
+  2  values(103,'RIYA','12-04-2022',2,'ALUVA',9753186420,'KL_03',28);
+
+1 row created.
+
+SQL> insert into  RESERVATION1(PNR_NO,Name,Journey_Date,No_of_seats,Address,Contact_No,bus_no,seat_n
+o)
+  2  values(104,'ALEENA','12-04-2022',2,'TRISSUR',9753186420,'KL_04',28);
+
+1 row created.
+
+SQL> insert into  RESERVATION1(PNR_NO,Name,Journey_Date,No_of_seats,Address,Contact_No,bus_no,seat_n
+o)
+  2  values(105,'HIMA','19-03-2022',2,'PATTAMBI',9753186420,'KL_05',28);
+
+1 row created.
+
+SQL> 
+SQL> SELECT * FROM RESERVATION1
+  2  
+SQL> SELECT * FROM RESERVATION1;
+
+    PNR_NO NAME            JOURNEY_DATE    NO_OF_SEATS ADDRESS
+---------- --------------- --------------- ----------- ---------------
+CONTACT_NO BUS_NO    SEAT_NO
+---------- ------ ----------
+       101 JOHN            12-03-2022                2 PATTOM
+9753186420 KL_01          28
+
+       102 JOY             19-03-2022                2 AYOOR
+9753186420 KL_02          28
+
+       103 RIYA            12-04-2022                2 ALUVA
+9753186420 KL_03          28
+
+
+    PNR_NO NAME            JOURNEY_DATE    NO_OF_SEATS ADDRESS
+---------- --------------- --------------- ----------- ---------------
+CONTACT_NO BUS_NO    SEAT_NO
+---------- ------ ----------
+       104 ALEENA          12-04-2022                2 TRISSUR
+9753186420 KL_04          28
+
+       105 HIMA            19-03-2022                2 PATTAMBI
+9753186420 KL_05          28
+
+
+SQL> COMMIT;
+
+Commit complete.
+
+SQL> create table BUS1(bus_no varchar(6) PRIMARY KEY,source varchar(15),couch_type varchar(10));
